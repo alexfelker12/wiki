@@ -11,3 +11,9 @@ count.txt
 .output
 .vinxi
 todos.json
+
+# prisma generated
+/generated/prisma
+
+# Local Netlify folder
+.netlify
