@@ -24,27 +24,25 @@ function App() {
   const testData = Route.useLoaderData()
 
   return (
-    <div className="p-4">
-      <Card size="sm" className="mx-auto w-full max-w-sm">
-        <CardHeader>
-          <CardTitle>Boilerplate Card</CardTitle>
-          <CardDescription>
-            Some random description
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ul>
-            {testData.map(data => (
-              <li key={data.id}>{data.value}</li>
-            ))}
-          </ul>
-        </CardContent>
-        <CardFooter>
-          <Button variant="outline" size="sm" className="w-full">
-            Click
-          </Button>
-        </CardFooter>
-      </Card>
-    </div>
+    <Card size="sm" className="mx-auto w-full max-w-sm">
+      <CardHeader>
+        <CardTitle>Boilerplate Card</CardTitle>
+        <CardDescription>
+          Some random description
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ul>
+          {testData.map(data => (
+            <li key={data.id}>{data.value}</li>
+          ))}
+        </ul>
+      </CardContent>
+      <CardFooter>
+        <Button variant="outline" size="sm" className="w-full">
+          Click
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }
