@@ -7,7 +7,114 @@ datasource db {
   provider = "postgresql"
 }
 
-model Test {
-  id    String @id @default(cuid(2))
-  value String
+// tables
+model RomHack {
+  id   String @id @default(cuid(2))
+  name String
+  slug String @unique
+
+  locations Location[]
+}
+
+model Location {
+  id   String       @id @default(cuid(2))
+  name String
+  slug String
+  type LocationType
+
+  romHack   RomHack @relation(fields: [romHackId], references: [id])
+  romHackId String
+
+  wildEncounters WildEncounter[]
+
+  @@unique([slug, romHackId])
+}
+
+model Pokemon {
+  id         String @id @default(cuid(2))
+  name       String
+  slug       String @unique
+  generation Int
+
+  wildEncounters WildEncounter[]
+  obtainMethods  ObtainMethod[]
+}
+
+model WildEncounter {
+  id String @id @default(cuid(2))
+
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId String
+
+  location   Location @relation(fields: [locationId], references: [id])
+  locationId String
+
+  method EncounterMethod
+
+  rate     Float?
+  minLevel Int?
+  maxLevel Int?
+
+  floor     String?
+  timeOfDay TimeOfDay?
+  weather   Weather?
+  note      String?
+
+  @@unique([pokemonId, locationId, method, minLevel]) // TODO: add maxLevel for more precise uniqueness
+}
+
+model ObtainMethod {
+  id String @id @default(cuid())
+
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId String
+
+  type ObtainType
+
+  level Int?
+  item  String?
+  note  String?
+}
+
+// enums
+enum LocationType {
+  CITY
+  ROUTE
+  CAVE
+  BUILDING
+  OTHER
+}
+
+enum EncounterMethod {
+  WALK
+  SURF
+  OLD_ROD
+  GOOD_ROD
+  SUPER_ROD
+  ROCK_SMASH
+  HEADBUTT
+  OTHER
+}
+
+enum TimeOfDay {
+  DAY
+  NIGHT
+  MORNING
+  EVENING
+}
+
+enum Weather {
+  RAIN
+  SANDSTORM
+  HAIL
+}
+
+enum ObtainType {
+  EVOLUTION
+  TRADE
+  GIFT
+  STARTER
+  FOSSIL
+  EVENT
+  OTHER
 }

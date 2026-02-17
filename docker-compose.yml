@@ -1,0 +1,34 @@
+#* local database environment
+#* WINDOWS: install docker desktop and run start command below
+
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: wiki_postgres_dev
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: wikiuser
+      POSTGRES_PASSWORD: wikipassword
+      POSTGRES_DB: wikidev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
+#* start - without logs
+# docker compose up -d
+#* start - with logs
+# docker compose up
+
+#* check if running
+# docker ps
+
+#* stop
+# docker compose down
+#* stop & delete data
+# docker compose down -v

@@ -17,3 +17,7 @@ todos.json
 
 # Local Netlify folder
 .netlify
+
+# local xlsx files/parser
+wild-pokemon-locations.xlsx
+xlsx-parser.ts
