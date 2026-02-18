@@ -1,12 +1,12 @@
 import { Link } from "@tanstack/react-router"
 import { LocationType } from "generated/prisma/enums"
 import { LocationModel } from "generated/prisma/models"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 import { cn } from "@/lib/utils"
 import { IconBuilding, IconBuildings, IconDirectionsOff, IconMap, IconRouteSquare, IconTheater } from "@tabler/icons-react"
 
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItemLocation, CommandList, CommandSeparator } from "@/components/ui/command"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItemLocation, CommandList } from "@/components/ui/command"
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty"
 import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item"
 
@@ -57,7 +57,7 @@ function LocationsList({ groupedLocations }: { groupedLocations: FindRomHackBySl
       <CommandInput placeholder="Search locations..." />
       <CommandList
         className={cn(
-          "*:*:first:hidden max-h-none",
+          "max-h-none",
           !mounted && "pointer-events-none opacity-50"
         )}
       >
@@ -67,16 +67,13 @@ function LocationsList({ groupedLocations }: { groupedLocations: FindRomHackBySl
           const groupName = labelMappings[type as LocationType] // type cast because entries types keys as `string`
 
           return (
-            <React.Fragment key={type}>
-              <CommandSeparator className="mt-1" />
-              <CommandGroup heading={groupName} className="**:[[cmdk-group-items]]:space-y-1.5 **:[[cmdk-group-heading]]:px-0 **:[[cmdk-group-heading]]:-mx-1">
-                {locations.map(location => (
-                  <CommandItemLocation key={location.id} value={location.name} asChild>
-                    <LocationItem location={location} />
-                  </CommandItemLocation>
-                ))}
-              </CommandGroup >
-            </React.Fragment>
+            <CommandGroup key={type} heading={groupName} className="**:[[cmdk-group-items]]:space-y-1.5 **:[[cmdk-group-heading]]:px-0 **:[[cmdk-group-heading]]:-mx-1">
+              {locations.map(location => (
+                <CommandItemLocation key={location.id} value={location.name} asChild>
+                  <LocationItem location={location} />
+                </CommandItemLocation>
+              ))}
+            </CommandGroup>
           );
         })}
         {mounted && <CommandEmpty>No results found.</CommandEmpty>}

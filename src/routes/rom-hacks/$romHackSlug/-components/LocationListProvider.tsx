@@ -13,15 +13,8 @@ export function useLocationList() {
 }
 
 //* ------------------ Provider ------------------
-export function LocationListProvider({
-  children,
-  ...contextValues
-}: LocationListContextValue & {
-  children: React.ReactNode
-}) {
+export function LocationListProvider(props: React.ComponentProps<typeof LocationListContext.Provider>) {
   return (
-    <LocationListContext.Provider value={contextValues}>
-      {children}
-    </LocationListContext.Provider>
+    <LocationListContext.Provider {...props} />
   )
 }

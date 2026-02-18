@@ -28,14 +28,13 @@ const getRomHackBySlug = createServerFn({ method: 'GET', })
 // main component(s)
 function RouteComponent() {
   const romHack = Route.useLoaderData()
-  const { romHackSlug } = Route.useParams()
 
   if (!romHack) return <NotFound />
 
   return (
-    <div className="max-h-full flex flex-col gap-y-4" data-maxScreenHeight>
+    <div className="max-h-full flex flex-col gap-y-4" data-maxscreenheight>
       <h1 className="text-xl">{romHack.name}</h1>
-      <LocationListProvider romHackSlug={romHackSlug}>
+      <LocationListProvider value={{ romHackSlug: romHack.slug }}>
         <LocationsList groupedLocations={romHack.locations} />
       </LocationListProvider>
     </div>
@@ -59,4 +58,3 @@ function NotFound() {
 export {
   Route
 }
-
