@@ -27,6 +27,7 @@
     "@tanstack/router-plugin": "^1.132.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "dotenv": "^17.3.1",
     "nitro": "latest",
     "node-xlsx": "^0.24.0",
