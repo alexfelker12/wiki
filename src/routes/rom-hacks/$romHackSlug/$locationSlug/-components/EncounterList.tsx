@@ -1,6 +1,6 @@
 import { WildEncounterModel } from "generated/prisma/models"
 
-import { IconArrowLeft, IconBrandHeadlessui, IconClipboard, IconFishHook, IconRipple, IconWalk, IconWreckingBall, IconZoomExclamation } from "@tabler/icons-react"
+import { IconBrandHeadlessui, IconClipboard, IconFishHook, IconRipple, IconWalk, IconWreckingBall, IconZoomExclamation } from "@tabler/icons-react"
 
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty"
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item"
@@ -27,7 +27,7 @@ function EncounterList() {
         <EmptyDescription>There are no wild encounters in this location</EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
-        <BackButton variant="secondary" size="lg"><IconArrowLeft />Go to Listing</BackButton>
+        <BackButton>Go to Listing</BackButton>
       </EmptyContent>
     </Empty>
   );

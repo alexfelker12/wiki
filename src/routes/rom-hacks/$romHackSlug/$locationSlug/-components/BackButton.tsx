@@ -1,14 +1,20 @@
 // copied from: https://github.com/vercel/next.js/discussions/74685#discussioncomment-11803529
+//? addepted tp own use case and usability
 
 import { useRouter } from "@tanstack/react-router"
 import { useCallback, useEffect, useState } from "react"
 
+import { IconArrowLeft } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
-
 import { useEncounterList } from "./EncounterListProvider"
 
 
-function BackButton({ ...rest }: React.ComponentProps<typeof Button>) {
+function BackButton({
+  size,
+  variant = "secondary",
+  children,
+  ...rest
+}: React.ComponentProps<typeof Button>) {
   const { location } = useEncounterList()
   const router = useRouter()
   const [canGoBack, setCanGoBack] = useState(false)
@@ -29,7 +35,14 @@ function BackButton({ ...rest }: React.ComponentProps<typeof Button>) {
   }, [canGoBack, router])
 
   return (
-    <Button onClick={handleBack} {...rest} />
+    <Button
+      size={size || (!children ? "icon-sm" : "sm")}
+      variant={variant}
+      onClick={handleBack}
+      {...rest}
+    >
+      <IconArrowLeft /> {children}
+    </Button>
   )
 }
 
