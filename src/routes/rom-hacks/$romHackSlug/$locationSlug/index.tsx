@@ -1,8 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from "@tanstack/react-start"
 
-import { Spinner } from "@/components/ui/spinner"
-
 import { findLocationBySlug, SlugsObj } from "./-index.functions"
 import { EncounterListProvider } from "./-components/EncounterListProvider"
 import { EncounterList } from "./-components/EncounterList"
@@ -13,7 +11,6 @@ import { BackButton } from "./-components/BackButton"
 const Route = createFileRoute('/rom-hacks/$romHackSlug/$locationSlug/')({
   loader: async ({ params }) => await getLocationBySlug({ data: params }),
   component: RouteComponent,
-  pendingComponent: PendingComponent,
   notFoundComponent: NotFound,
 })
 
@@ -41,14 +38,6 @@ function RouteComponent() {
       </div>
     </EncounterListProvider>
   );
-}
-
-function PendingComponent() {
-  return (
-    <div className="size-full grid place-items-center">
-      <Spinner className="size-6" />
-    </div>
-  )
 }
 
 function NotFound() {

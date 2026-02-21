@@ -18,6 +18,7 @@ function App() {
       <Button
         size="lg"
         variant="outline"
+        className="w-full"
         nativeButton={false}
         render={
           <Link to="/rom-hacks">Explore ROM-Hacks <IconBinoculars className="size-5" /></Link>

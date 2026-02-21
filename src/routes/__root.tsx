@@ -42,7 +42,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body className="grid grid-rows-[auto_1fr_auto] *:[main,header,footer]:w-full h-full antialiased">
         <header></header>
-        <main className="p-4 has-data-maxScreenHeight:overflow-y-hidden">
+        <main className="p-4 has-data-maxscreenheight:overflow-y-hidden">
           {children}
         </main>
         <footer className="p-2 pt-0.5 border-t border-t-muted-foreground/50 bg-card">

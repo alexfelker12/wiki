@@ -1,8 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from "@tanstack/react-start"
 
-import { Spinner } from "@/components/ui/spinner"
-
 import { LocationsList } from "./-components/LocationList"
 import { findRomHackBySlug, RomHackSlug } from "./-index.functions"
 import { LocationListProvider } from "./-components/LocationListProvider"
@@ -13,7 +11,6 @@ const Route = createFileRoute('/rom-hacks/$romHackSlug/')({
   loader: async ({ params: { romHackSlug } }) => {
     return await getRomHackBySlug({ data: { slug: romHackSlug } })
   },
-  pendingComponent: PendingComponent,
   component: RouteComponent,
   notFoundComponent: NotFound,
 })
@@ -39,14 +36,6 @@ function RouteComponent() {
       </LocationListProvider>
     </div>
   );
-}
-
-function PendingComponent() {
-  return (
-    <div className="size-full grid place-items-center">
-      <Spinner className="size-6" />
-    </div>
-  )
 }
 
 function NotFound() {
