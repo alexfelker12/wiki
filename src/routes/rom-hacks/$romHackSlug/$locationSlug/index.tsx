@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from "@tanstack/react-start"
+import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions"
 
 import { findLocationBySlug, SlugsObj } from "./-index.functions"
 import { EncounterListProvider } from "./-components/EncounterListProvider"
@@ -17,6 +18,7 @@ const Route = createFileRoute('/rom-hacks/$romHackSlug/$locationSlug/')({
 // server function
 const getLocationBySlug = createServerFn({ method: 'GET', })
   .inputValidator((data: SlugsObj) => data)
+  .middleware([staticFunctionMiddleware])
   .handler(({ data }) => {
     return findLocationBySlug(data)
   })

@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from "@tanstack/react-start"
+import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions"
 
 import { LocationsList } from "./-components/LocationList"
 import { findRomHackBySlug, RomHackSlug } from "./-index.functions"
@@ -18,6 +19,7 @@ const Route = createFileRoute('/rom-hacks/$romHackSlug/')({
 // server function
 const getRomHackBySlug = createServerFn({ method: 'GET', })
   .inputValidator((data: RomHackSlug) => data)
+  .middleware([staticFunctionMiddleware])
   .handler(({ data: { slug } }) => {
     return findRomHackBySlug({ slug })
   })
@@ -29,12 +31,12 @@ function RouteComponent() {
   if (!romHack) return <NotFound />
 
   return (
-    <div className="max-h-full flex flex-col gap-y-4" data-maxscreenheight>
-      <h1 className="text-xl">{romHack.name}</h1>
-      <LocationListProvider value={{ romHackSlug: romHack.slug }}>
+    <LocationListProvider value={{ romHackSlug: romHack.slug }}>
+      <div className="max-h-full flex flex-col gap-y-4" data-maxscreenheight>
+        <h1 className="text-xl">{romHack.name}</h1>
         <LocationsList groupedLocations={romHack.locations} />
-      </LocationListProvider>
-    </div>
+      </div>
+    </LocationListProvider>
   );
 }
 
