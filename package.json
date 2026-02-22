@@ -3,9 +3,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build",
+    "dev": "dotenvx run -- run-p dev:*",
+    "dev:schema": "prisma generate --generator dev --watch",
+    "dev:web": "vite dev --port 3000",
+    "build": "run-s build:prisma build:migrate build:web",
+    "build:prisma": "prisma generate --generator prod",
+    "build:migrate": "prisma migrate deploy",
+    "build:web": "vite build && tsc --noEmit",
+    "deploy": "pnpm run build && wrangler deploy",
     "preview": "vite preview",
+    "cf-typegen": "wrangler types",
     "test": "vitest run",
     "lint": "eslint",
     "format": "prettier",
@@ -14,9 +21,11 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
+    "@dotenvx/dotenvx": "^1.52.0",
     "@fontsource-variable/outfit": "^5.2.8",
     "@prisma/adapter-pg": "^7.4.0",
     "@prisma/client": "^7.4.0",
+    "@prisma/extension-accelerate": "^3.0.1",
     "@tabler/icons-react": "^3.36.1",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-devtools": "^0.9.6",
@@ -43,6 +52,7 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.25.2",
     "@netlify/vite-plugin-tanstack-start": "^1.2.9",
     "@tanstack/devtools-vite": "^0.5.1",
     "@tanstack/eslint-config": "^0.4.0",
@@ -53,12 +63,15 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.4",
+    "dotenv-cli": "^11.0.0",
     "jsdom": "^27.0.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.5.3",
     "prisma": "^7.4.0",
     "typescript": "^5.7.2",
     "vite": "^7.1.7",
     "vitest": "^3.0.5",
-    "web-vitals": "^5.1.0"
+    "web-vitals": "^5.1.0",
+    "wrangler": "^4.67.0"
   }
 }

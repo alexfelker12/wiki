@@ -12,6 +12,7 @@ count.txt
 .vinxi
 todos.json
 .vscode
+.dev.vars
 
 # prisma generated
 /generated/prisma
