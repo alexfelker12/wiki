@@ -13,6 +13,7 @@ count.txt
 todos.json
 .vscode
 .dev.vars
+wrangler.jsonc
 
 # prisma generated
 /generated/prisma
