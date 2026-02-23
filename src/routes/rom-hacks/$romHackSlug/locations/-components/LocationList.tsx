@@ -10,12 +10,12 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItemLocation,
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty"
 import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item"
 
-import { type FindRomHackBySlugReturn } from "../-index.functions"
+import { type FindRomHackWithLocationsBySlugReturn } from "../-index.functions"
 import { labelMappings } from "./mappings"
 import { useLocationList } from "./LocationListProvider"
 
 
-function LocationsList({ groupedLocations }: { groupedLocations: FindRomHackBySlugReturn }) {
+function LocationsList({ groupedLocations }: { groupedLocations: FindRomHackWithLocationsBySlugReturn }) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -89,7 +89,7 @@ function LocationItem({ location }: { location: LocationModel }) {
     <Item size="sm" variant="outline" className="focus-visible:bg-border/30 focus-visible:ring"
       render={
         <Link
-          to="/rom-hacks/$romHackSlug/$locationSlug"
+          to="/rom-hacks/$romHackSlug/locations/$locationSlug"
           params={{ romHackSlug, locationSlug: location.slug }}
         >
           <ItemMedia variant="icon" className="text-muted-foreground">

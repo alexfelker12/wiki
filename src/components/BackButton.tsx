@@ -1,21 +1,22 @@
 // copied from: https://github.com/vercel/next.js/discussions/74685#discussioncomment-11803529
-//? addepted tp own use case and usability
+//? addepted to own use case and usability
 
-import { useRouter } from "@tanstack/react-router"
+import { type NavigateOptions, useRouter } from "@tanstack/react-router"
 import { useCallback, useEffect, useState } from "react"
 
 import { IconArrowLeft } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
-import { useEncounterList } from "./EncounterListProvider"
 
 
 function BackButton({
   size,
   variant = "secondary",
   children,
+  fallbackNav,
   ...rest
-}: React.ComponentProps<typeof Button>) {
-  const { location } = useEncounterList()
+}: React.ComponentProps<typeof Button> & {
+  fallbackNav: NavigateOptions
+}) {
   const router = useRouter()
   const [canGoBack, setCanGoBack] = useState(false)
 
@@ -27,10 +28,7 @@ function BackButton({
     if (canGoBack) {
       router.history.back()
     } else {
-      router.navigate({
-        to: "/rom-hacks/$romHackSlug",
-        params: { romHackSlug: location.romHack.slug }
-      })
+      router.navigate(fallbackNav)
     }
   }, [canGoBack, router])
 

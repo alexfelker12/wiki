@@ -1,55 +1,70 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { createServerFn } from "@tanstack/react-start"
-// import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions"
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { createServerFn } from "@tanstack/react-start";
 
-import { LocationsList } from "./-components/LocationList"
-import { findRomHackBySlug, RomHackSlug } from "./-index.functions"
-import { LocationListProvider } from "./-components/LocationListProvider"
+import { BackButton } from "@/components/BackButton";
+import { Button } from "@/components/ui/button";
+
+import { findRomHackBySlug } from "./-index.functions";
 
 
-// Route
-const Route = createFileRoute('/rom-hacks/$romHackSlug/')({
+export const Route = createFileRoute('/rom-hacks/$romHackSlug/')({
   loader: async ({ params: { romHackSlug } }) => {
     return await getRomHackBySlug({ data: { slug: romHackSlug } })
   },
-  // loader: async ({ params }) => {
-  //   console.log("slug:", params.romHackSlug)
-  //   return { name: "test", slug: params.romHackSlug, locations: [] }
-  // },
   component: RouteComponent,
-  notFoundComponent: NotFound,
 })
 
 // server function
 const getRomHackBySlug = createServerFn({ method: 'GET', })
-  .inputValidator((data: RomHackSlug) => data)
+  .inputValidator((data: { slug: string }) => data)
   // .middleware([staticFunctionMiddleware])
   .handler(({ data: { slug } }) => {
     return findRomHackBySlug({ slug })
   })
 
-// main component(s)
 function RouteComponent() {
   const romHack = Route.useLoaderData()
 
-  if (!romHack) return <NotFound />
+  if (!romHack) return null
 
   return (
-    <LocationListProvider value={{ romHackSlug: romHack.slug }}>
-      <div className="max-h-full flex flex-col gap-y-4" data-maxscreenheight>
+    <div className="space-y-4">
+      <div className="flex gap-2 items-center">
+        <BackButton fallbackNav={{ to: "/rom-hacks" }} />
         <h1 className="text-xl">{romHack.name}</h1>
-        <LocationsList groupedLocations={romHack.locations} />
       </div>
-    </LocationListProvider>
-  );
-}
 
-function NotFound() {
-  return (
-    <div>ROM-Hack was not found</div>
-  );
-}
+      <div className="flex flex-col gap-2">
+        <Button
+          size="lg"
+          variant="outline"
+          className="w-full"
+          nativeButton={false}
+          render={
+            <Link
+              to="/rom-hacks/$romHackSlug/locations"
+              params={{ romHackSlug: romHack.slug }}
+            >
+              Locations
+            </Link>
+          }
+        />
+        {/* <Button
+          size="lg"
+          variant="outline"
+          className="w-full"
+          nativeButton={false}
+          render={
+            <Link
+              to="/rom-hacks/$romHackSlug"
+              params={{ romHackSlug: romHack.slug }}
+            >
+              Pokémons
+            </Link>
+          }
+        /> */}
+      </div>
 
-export {
-  Route
+    </div>
+  );
 }

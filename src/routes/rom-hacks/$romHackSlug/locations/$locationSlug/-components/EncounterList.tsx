@@ -4,11 +4,11 @@ import { IconBrandHeadlessui, IconClipboard, IconFishHook, IconRipple, IconWalk,
 
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty"
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item"
+import { Button } from "@/components/ui/button"
+import { BackButton } from "@/components/BackButton"
 
 import { FindLocationBySlugReturn } from "../-index.functions"
 import { useEncounterList } from "./EncounterListProvider"
-import { Button } from "@/components/ui/button"
-import { BackButton } from "./BackButton"
 
 
 function EncounterList() {
@@ -27,7 +27,14 @@ function EncounterList() {
         <EmptyDescription>There are no wild encounters in this location</EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
-        <BackButton>Go to Listing</BackButton>
+        <BackButton
+          fallbackNav={{
+            to: "/rom-hacks/$romHackSlug/locations",
+            params: { romHackSlug: location.romHack.slug }
+          }}
+        >
+          Go to Listing
+        </BackButton>
       </EmptyContent>
     </Empty>
   );

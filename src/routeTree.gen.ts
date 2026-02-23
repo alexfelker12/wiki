@@ -12,7 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RomHacksIndexRouteImport } from './routes/rom-hacks/index'
 import { Route as RomHacksRomHackSlugIndexRouteImport } from './routes/rom-hacks/$romHackSlug/index'
-import { Route as RomHacksRomHackSlugLocationSlugIndexRouteImport } from './routes/rom-hacks/$romHackSlug/$locationSlug/index'
+import { Route as RomHacksRomHackSlugLocationsIndexRouteImport } from './routes/rom-hacks/$romHackSlug/locations/index'
+import { Route as RomHacksRomHackSlugLocationsLocationSlugIndexRouteImport } from './routes/rom-hacks/$romHackSlug/locations/$locationSlug/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,10 +31,16 @@ const RomHacksRomHackSlugIndexRoute =
     path: '/rom-hacks/$romHackSlug/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const RomHacksRomHackSlugLocationSlugIndexRoute =
-  RomHacksRomHackSlugLocationSlugIndexRouteImport.update({
-    id: '/rom-hacks/$romHackSlug/$locationSlug/',
-    path: '/rom-hacks/$romHackSlug/$locationSlug/',
+const RomHacksRomHackSlugLocationsIndexRoute =
+  RomHacksRomHackSlugLocationsIndexRouteImport.update({
+    id: '/rom-hacks/$romHackSlug/locations/',
+    path: '/rom-hacks/$romHackSlug/locations/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const RomHacksRomHackSlugLocationsLocationSlugIndexRoute =
+  RomHacksRomHackSlugLocationsLocationSlugIndexRouteImport.update({
+    id: '/rom-hacks/$romHackSlug/locations/$locationSlug/',
+    path: '/rom-hacks/$romHackSlug/locations/$locationSlug/',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -41,20 +48,23 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/rom-hacks/': typeof RomHacksIndexRoute
   '/rom-hacks/$romHackSlug/': typeof RomHacksRomHackSlugIndexRoute
-  '/rom-hacks/$romHackSlug/$locationSlug/': typeof RomHacksRomHackSlugLocationSlugIndexRoute
+  '/rom-hacks/$romHackSlug/locations/': typeof RomHacksRomHackSlugLocationsIndexRoute
+  '/rom-hacks/$romHackSlug/locations/$locationSlug/': typeof RomHacksRomHackSlugLocationsLocationSlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/rom-hacks': typeof RomHacksIndexRoute
   '/rom-hacks/$romHackSlug': typeof RomHacksRomHackSlugIndexRoute
-  '/rom-hacks/$romHackSlug/$locationSlug': typeof RomHacksRomHackSlugLocationSlugIndexRoute
+  '/rom-hacks/$romHackSlug/locations': typeof RomHacksRomHackSlugLocationsIndexRoute
+  '/rom-hacks/$romHackSlug/locations/$locationSlug': typeof RomHacksRomHackSlugLocationsLocationSlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/rom-hacks/': typeof RomHacksIndexRoute
   '/rom-hacks/$romHackSlug/': typeof RomHacksRomHackSlugIndexRoute
-  '/rom-hacks/$romHackSlug/$locationSlug/': typeof RomHacksRomHackSlugLocationSlugIndexRoute
+  '/rom-hacks/$romHackSlug/locations/': typeof RomHacksRomHackSlugLocationsIndexRoute
+  '/rom-hacks/$romHackSlug/locations/$locationSlug/': typeof RomHacksRomHackSlugLocationsLocationSlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -62,26 +72,30 @@ export interface FileRouteTypes {
     | '/'
     | '/rom-hacks/'
     | '/rom-hacks/$romHackSlug/'
-    | '/rom-hacks/$romHackSlug/$locationSlug/'
+    | '/rom-hacks/$romHackSlug/locations/'
+    | '/rom-hacks/$romHackSlug/locations/$locationSlug/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/rom-hacks'
     | '/rom-hacks/$romHackSlug'
-    | '/rom-hacks/$romHackSlug/$locationSlug'
+    | '/rom-hacks/$romHackSlug/locations'
+    | '/rom-hacks/$romHackSlug/locations/$locationSlug'
   id:
     | '__root__'
     | '/'
     | '/rom-hacks/'
     | '/rom-hacks/$romHackSlug/'
-    | '/rom-hacks/$romHackSlug/$locationSlug/'
+    | '/rom-hacks/$romHackSlug/locations/'
+    | '/rom-hacks/$romHackSlug/locations/$locationSlug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   RomHacksIndexRoute: typeof RomHacksIndexRoute
   RomHacksRomHackSlugIndexRoute: typeof RomHacksRomHackSlugIndexRoute
-  RomHacksRomHackSlugLocationSlugIndexRoute: typeof RomHacksRomHackSlugLocationSlugIndexRoute
+  RomHacksRomHackSlugLocationsIndexRoute: typeof RomHacksRomHackSlugLocationsIndexRoute
+  RomHacksRomHackSlugLocationsLocationSlugIndexRoute: typeof RomHacksRomHackSlugLocationsLocationSlugIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -107,11 +121,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RomHacksRomHackSlugIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/rom-hacks/$romHackSlug/$locationSlug/': {
-      id: '/rom-hacks/$romHackSlug/$locationSlug/'
-      path: '/rom-hacks/$romHackSlug/$locationSlug'
-      fullPath: '/rom-hacks/$romHackSlug/$locationSlug/'
-      preLoaderRoute: typeof RomHacksRomHackSlugLocationSlugIndexRouteImport
+    '/rom-hacks/$romHackSlug/locations/': {
+      id: '/rom-hacks/$romHackSlug/locations/'
+      path: '/rom-hacks/$romHackSlug/locations'
+      fullPath: '/rom-hacks/$romHackSlug/locations/'
+      preLoaderRoute: typeof RomHacksRomHackSlugLocationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rom-hacks/$romHackSlug/locations/$locationSlug/': {
+      id: '/rom-hacks/$romHackSlug/locations/$locationSlug/'
+      path: '/rom-hacks/$romHackSlug/locations/$locationSlug'
+      fullPath: '/rom-hacks/$romHackSlug/locations/$locationSlug/'
+      preLoaderRoute: typeof RomHacksRomHackSlugLocationsLocationSlugIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -121,8 +142,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   RomHacksIndexRoute: RomHacksIndexRoute,
   RomHacksRomHackSlugIndexRoute: RomHacksRomHackSlugIndexRoute,
-  RomHacksRomHackSlugLocationSlugIndexRoute:
-    RomHacksRomHackSlugLocationSlugIndexRoute,
+  RomHacksRomHackSlugLocationsIndexRoute:
+    RomHacksRomHackSlugLocationsIndexRoute,
+  RomHacksRomHackSlugLocationsLocationSlugIndexRoute:
+    RomHacksRomHackSlugLocationsLocationSlugIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

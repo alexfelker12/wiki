@@ -1,58 +1,15 @@
-import { LocationType } from "generated/prisma/enums"
-import type { LocationModel, RomHackModel } from "generated/prisma/models"
-
 import { db } from "@/lib/db"
 
 
-type RomHackSlug = Pick<RomHackModel, "slug">
-type FindRomHackBySlugReturn = NonNullable<Awaited<ReturnType<typeof findRomHackBySlug>>>["locations"]
+type FindRomHackBySlugReturn = Awaited<ReturnType<typeof findRomHackBySlug>>
 
-const findRomHackBySlug = async ({ slug }: RomHackSlug) => {
-  const romHack = await db.romHack.findUnique({
-    where: {
-      slug
-    },
-    include: {
-      locations: true
-    }
+const findRomHackBySlug = async ({ slug }: { slug: string }) => {
+  return await db.romHack.findUnique({
+    where: { slug }
   })
-
-  if (!romHack) return null
-
-  // manually group locations by type
-  const groupedLocations: (Record<LocationType, LocationModel[]>) = {
-    CITY: [],
-    ROUTE: [],
-    CAVE: [],
-    BUILDING: [],
-    OTHER: [],
-  }
-  romHack.locations.forEach(location => { groupedLocations[location.type].push(location) })
-
-  // const groupedLocations2 = await db.location.groupBy({
-  //   where: { romHack: { slug } },
-  //   by: ["type", "name"],
-  //   orderBy: { name: "asc" }
-  // })
-
-  // sort grouped arrays alphabetically
-  const sortedGroupedLocations = Object.fromEntries(
-    Object.entries(groupedLocations).map(
-      ([type, locations]) => [
-        type, // key should be of type `LocationType`, sadly get's lost even when casting
-        locations.sort((a, b) => a.name.localeCompare(b.name)) // ascending
-      ]
-    )
-  )
-
-  return {
-    ...romHack,
-    locations: sortedGroupedLocations
-  }
 }
 
 export {
-  type RomHackSlug,
-  type FindRomHackBySlugReturn,
-  findRomHackBySlug
+  findRomHackBySlug, type FindRomHackBySlugReturn
 }
+
