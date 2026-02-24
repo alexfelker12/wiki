@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RomHacksIndexRouteImport } from './routes/rom-hacks/index'
 import { Route as RomHacksRomHackSlugIndexRouteImport } from './routes/rom-hacks/$romHackSlug/index'
+import { Route as RomHacksRomHackSlugPokemonsIndexRouteImport } from './routes/rom-hacks/$romHackSlug/pokemons/index'
 import { Route as RomHacksRomHackSlugLocationsIndexRouteImport } from './routes/rom-hacks/$romHackSlug/locations/index'
 import { Route as RomHacksRomHackSlugLocationsLocationSlugIndexRouteImport } from './routes/rom-hacks/$romHackSlug/locations/$locationSlug/index'
 
@@ -29,6 +30,12 @@ const RomHacksRomHackSlugIndexRoute =
   RomHacksRomHackSlugIndexRouteImport.update({
     id: '/rom-hacks/$romHackSlug/',
     path: '/rom-hacks/$romHackSlug/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const RomHacksRomHackSlugPokemonsIndexRoute =
+  RomHacksRomHackSlugPokemonsIndexRouteImport.update({
+    id: '/rom-hacks/$romHackSlug/pokemons/',
+    path: '/rom-hacks/$romHackSlug/pokemons/',
     getParentRoute: () => rootRouteImport,
   } as any)
 const RomHacksRomHackSlugLocationsIndexRoute =
@@ -49,6 +56,7 @@ export interface FileRoutesByFullPath {
   '/rom-hacks/': typeof RomHacksIndexRoute
   '/rom-hacks/$romHackSlug/': typeof RomHacksRomHackSlugIndexRoute
   '/rom-hacks/$romHackSlug/locations/': typeof RomHacksRomHackSlugLocationsIndexRoute
+  '/rom-hacks/$romHackSlug/pokemons/': typeof RomHacksRomHackSlugPokemonsIndexRoute
   '/rom-hacks/$romHackSlug/locations/$locationSlug/': typeof RomHacksRomHackSlugLocationsLocationSlugIndexRoute
 }
 export interface FileRoutesByTo {
@@ -56,6 +64,7 @@ export interface FileRoutesByTo {
   '/rom-hacks': typeof RomHacksIndexRoute
   '/rom-hacks/$romHackSlug': typeof RomHacksRomHackSlugIndexRoute
   '/rom-hacks/$romHackSlug/locations': typeof RomHacksRomHackSlugLocationsIndexRoute
+  '/rom-hacks/$romHackSlug/pokemons': typeof RomHacksRomHackSlugPokemonsIndexRoute
   '/rom-hacks/$romHackSlug/locations/$locationSlug': typeof RomHacksRomHackSlugLocationsLocationSlugIndexRoute
 }
 export interface FileRoutesById {
@@ -64,6 +73,7 @@ export interface FileRoutesById {
   '/rom-hacks/': typeof RomHacksIndexRoute
   '/rom-hacks/$romHackSlug/': typeof RomHacksRomHackSlugIndexRoute
   '/rom-hacks/$romHackSlug/locations/': typeof RomHacksRomHackSlugLocationsIndexRoute
+  '/rom-hacks/$romHackSlug/pokemons/': typeof RomHacksRomHackSlugPokemonsIndexRoute
   '/rom-hacks/$romHackSlug/locations/$locationSlug/': typeof RomHacksRomHackSlugLocationsLocationSlugIndexRoute
 }
 export interface FileRouteTypes {
@@ -73,6 +83,7 @@ export interface FileRouteTypes {
     | '/rom-hacks/'
     | '/rom-hacks/$romHackSlug/'
     | '/rom-hacks/$romHackSlug/locations/'
+    | '/rom-hacks/$romHackSlug/pokemons/'
     | '/rom-hacks/$romHackSlug/locations/$locationSlug/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -80,6 +91,7 @@ export interface FileRouteTypes {
     | '/rom-hacks'
     | '/rom-hacks/$romHackSlug'
     | '/rom-hacks/$romHackSlug/locations'
+    | '/rom-hacks/$romHackSlug/pokemons'
     | '/rom-hacks/$romHackSlug/locations/$locationSlug'
   id:
     | '__root__'
@@ -87,6 +99,7 @@ export interface FileRouteTypes {
     | '/rom-hacks/'
     | '/rom-hacks/$romHackSlug/'
     | '/rom-hacks/$romHackSlug/locations/'
+    | '/rom-hacks/$romHackSlug/pokemons/'
     | '/rom-hacks/$romHackSlug/locations/$locationSlug/'
   fileRoutesById: FileRoutesById
 }
@@ -95,6 +108,7 @@ export interface RootRouteChildren {
   RomHacksIndexRoute: typeof RomHacksIndexRoute
   RomHacksRomHackSlugIndexRoute: typeof RomHacksRomHackSlugIndexRoute
   RomHacksRomHackSlugLocationsIndexRoute: typeof RomHacksRomHackSlugLocationsIndexRoute
+  RomHacksRomHackSlugPokemonsIndexRoute: typeof RomHacksRomHackSlugPokemonsIndexRoute
   RomHacksRomHackSlugLocationsLocationSlugIndexRoute: typeof RomHacksRomHackSlugLocationsLocationSlugIndexRoute
 }
 
@@ -121,6 +135,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RomHacksRomHackSlugIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rom-hacks/$romHackSlug/pokemons/': {
+      id: '/rom-hacks/$romHackSlug/pokemons/'
+      path: '/rom-hacks/$romHackSlug/pokemons'
+      fullPath: '/rom-hacks/$romHackSlug/pokemons/'
+      preLoaderRoute: typeof RomHacksRomHackSlugPokemonsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rom-hacks/$romHackSlug/locations/': {
       id: '/rom-hacks/$romHackSlug/locations/'
       path: '/rom-hacks/$romHackSlug/locations'
@@ -144,6 +165,7 @@ const rootRouteChildren: RootRouteChildren = {
   RomHacksRomHackSlugIndexRoute: RomHacksRomHackSlugIndexRoute,
   RomHacksRomHackSlugLocationsIndexRoute:
     RomHacksRomHackSlugLocationsIndexRoute,
+  RomHacksRomHackSlugPokemonsIndexRoute: RomHacksRomHackSlugPokemonsIndexRoute,
   RomHacksRomHackSlugLocationsLocationSlugIndexRoute:
     RomHacksRomHackSlugLocationsLocationSlugIndexRoute,
 }

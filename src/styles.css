@@ -5,6 +5,30 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/** collabsable animation */
+@theme {
+  @keyframes collapsible-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--collapsible-panel-height);
+    }
+  }
+
+  @keyframes collapsible-up {
+    from {
+      height: var(--collapsible-panel-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  --animate-collapsible-down: collapsible-down 0.15s ease-out;
+  --animate-collapsible-up: collapsible-up 0.15s ease-out;
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

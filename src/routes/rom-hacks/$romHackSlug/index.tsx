@@ -49,20 +49,20 @@ function RouteComponent() {
             </Link>
           }
         />
-        {/* <Button
+        <Button
           size="lg"
           variant="outline"
           className="w-full"
           nativeButton={false}
           render={
             <Link
-              to="/rom-hacks/$romHackSlug"
+              to="/rom-hacks/$romHackSlug/pokemons"
               params={{ romHackSlug: romHack.slug }}
             >
               Pokémons
             </Link>
           }
-        /> */}
+        />
       </div>
 
     </div>

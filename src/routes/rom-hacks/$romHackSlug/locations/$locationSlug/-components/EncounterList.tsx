@@ -68,6 +68,7 @@ function EncounterItem({ encounter }: { encounter: FindLocationBySlugReturn["wil
       <ItemActions>
         <Button
           size="xs"
+          variant="outline"
           render={
             <a href={`https://pokewiki.de/${encounter.pokemon.name}`}>
               Go to Wiki
