@@ -14,7 +14,11 @@ const findRomHackWithLocationsBySlug = async ({ slug }: RomHackSlug) => {
     },
     include: {
       locations: true
-    }
+    },
+    cacheStrategy: {
+      ttl: 31536000, // 1 year
+      swr: 31536000, // 1 year
+    },
   })
 
   if (!romHack) return null

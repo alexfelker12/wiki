@@ -18,7 +18,11 @@ const findPokemonByName = async ({ name }: { name: string }) => {
       wildEncounters: {
         include: { location: true }
       }
-    }
+    },
+    cacheStrategy: {
+      ttl: 31536000, // 1 year
+      swr: 31536000, // 1 year
+    },
   })
 }
 
