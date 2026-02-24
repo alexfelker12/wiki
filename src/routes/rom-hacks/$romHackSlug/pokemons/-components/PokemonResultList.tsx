@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { createServerFn } from "@tanstack/react-start";
 
-import { IconSearchOff } from "@tabler/icons-react";
+import { IconBackspace, IconSearchOff } from "@tabler/icons-react";
 
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
@@ -83,7 +83,7 @@ function PokemonResultsFetching() {
 }
 
 function PokemonNoResults() {
-  const { search, setSearch } = usePokemonSearch()
+  const { search, setSearch, setInput, inputRef } = usePokemonSearch()
 
   return (
     <Empty className="border">
@@ -95,7 +95,16 @@ function PokemonNoResults() {
         <EmptyDescription>No Pokémon with that name or starting with that name could be found</EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
-        <Button variant="outline" onClick={() => setSearch("")}>Clear search</Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            setSearch("")
+            setInput("")
+            inputRef.current?.focus()
+          }}
+        >
+          <IconBackspace /> Clear search
+        </Button>
       </EmptyContent>
     </Empty>
   );

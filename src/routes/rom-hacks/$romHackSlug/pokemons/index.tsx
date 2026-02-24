@@ -38,11 +38,12 @@ function RouteComponent() {
 }
 
 function PokemonSearch({ romHackSlug }: { romHackSlug: string }) {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("")
+  const [input, setInput] = useState("")
   const inputRef = useRef<HTMLInputElement>(null)
 
   return (
-    <PokemonSearchProvider value={{ search, setSearch, romHackSlug, inputRef }}>
+    <PokemonSearchProvider value={{ search, setSearch, input, setInput, romHackSlug, inputRef }}>
       <PokemonSearchInput />
       <PokemonResultList />
     </PokemonSearchProvider>

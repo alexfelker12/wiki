@@ -4,6 +4,8 @@ import { createContext, use } from "react";
 interface PokemonSearchContextValue {
   search: string
   setSearch: (search: string) => void
+  input: string
+  setInput: (input: string) => void
   romHackSlug: string
   inputRef: React.RefObject<HTMLInputElement | null>
 }

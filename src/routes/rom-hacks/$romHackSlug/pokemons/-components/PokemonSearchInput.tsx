@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 import { IconSearch } from "@tabler/icons-react"
 
 import { Button } from "@/components/ui/button"
@@ -10,8 +8,7 @@ import { usePokemonSearch } from "./PokemonSearchProvider"
 
 
 function PokemonSearchInput() {
-  const { setSearch, inputRef } = usePokemonSearch()
-  const [input, setInput] = useState("")
+  const { input, setInput, setSearch, inputRef } = usePokemonSearch()
 
   return (
     <form
@@ -47,4 +44,4 @@ function PokemonSearchInput() {
   );
 }
 
-export { PokemonSearchInput }
+export { PokemonSearchInput };
