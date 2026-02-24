@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "dotenvx run -- run-p dev:*",
     "dev:schema": "prisma generate --generator dev --watch",
-    "dev:web": "vite dev --port 3000",
+    "dev:web": "vite dev --port 3000 --host",
     "build": "run-s build:prisma build:migrate build:web",
     "build:prisma": "prisma generate --generator prod",
     "build:migrate": "prisma migrate deploy",
